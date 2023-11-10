@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import filedialog
 import os
 import librosa
+from os import path 
+from pydub import AudioSegment 
 
 class AudioFileLoaderApp(tk.Tk):
     def __init__(self):
@@ -34,3 +36,11 @@ class AudioFileLoaderApp(tk.Tk):
 if __name__ == '__main__':
     app = AudioFileLoaderApp()
     app.mainloop()
+
+# files
+src = "transcript.mp3"
+dst = "test.wav"
+
+# convert wav to mp3
+sound = AudioSegment.from_mp3(src)
+sound.export(dst, format="wav")
