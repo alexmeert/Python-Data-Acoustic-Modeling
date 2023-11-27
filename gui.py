@@ -16,7 +16,7 @@ class AudioFileLoaderApp(tk.Tk):
 
     def init_ui(self):
         self.load_button = tk.Button(self, text='Load Audio File', command=self.load_audio_file)
-        self.load_button.place(x=20, y=20, width=150, height=40)
+        self.load_button.place(x=120, y=20, width=150, height=40)
 
         self.file_label = tk.Label(self, text='No file loaded')
         self.file_label.place(x=20, y=80, width=360, height=40)
