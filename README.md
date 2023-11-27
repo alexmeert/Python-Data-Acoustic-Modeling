@@ -8,3 +8,5 @@ least 1 second of reverb time.
 Our first step was to create a clean and simple GUI that was user-friendly and easily understood. We used Tkinter, a standard GUI toolkit for Python to create the GUI
 that our user will fetch their desired audio sample from. We added a button that allows the user to access their files and select their audio file. The accepted file
 types are .mp3 and .wav, however, to manipulate and plot this data (this will be discussed later) we will need to convert the audio file to the .wav file format.
+
+After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways.
