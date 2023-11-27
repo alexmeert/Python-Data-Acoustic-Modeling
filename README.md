@@ -19,3 +19,5 @@ After selecting the audio sample and converting it, we will manipulate and plot 
   - SciPy (manipulation and plotting audio)
 
 # Usage
+**Follow these steps to use our project:**
+  1. 
