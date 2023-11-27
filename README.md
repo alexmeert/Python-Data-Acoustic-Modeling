@@ -12,6 +12,10 @@ types are .mp3 and .wav, however, to manipulate and plot this data (this will be
 
 After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways.
 
-# Integration & Usage
+# Installation
+**In order to use this project properly, you must pip-install these libraries:**
+  - Tkinter (to create the GUI)
+  - Pydub (used for converting and manipulating the audio)
+  - SciPy (manipulation and plotting audio)
 
-**How-to guide of how a user will integrate and use our code for this project will go here.**
+# Usage
