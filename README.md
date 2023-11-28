@@ -20,6 +20,7 @@ After selecting the audio sample and converting it, we will manipulate and plot 
 
 # Usage
 **Follow these steps to use our project:**
-  1. Run the program, you should see the GUI
-  2. Click on the "Select Audio File" button and select your audio sample
-  3. 
+  1. Ensure that you have all the necessary libraries installed
+  2. Run the program (you should now see the GUI)
+  3. Click on the "Select Audio File" button and select your audio sample
+  4. 
