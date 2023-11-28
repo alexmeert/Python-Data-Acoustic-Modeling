@@ -10,7 +10,7 @@ Our first step was to create a clean and simple GUI that was user-friendly and e
 that our user will fetch their desired audio sample from. We added a button that allows the user to access their files and select their audio file. The accepted file
 types are .mp3 and .wav, however, to manipulate and plot this data (this will be discussed later) we will need to convert the audio file to the .wav file format.
 
-After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways.
+After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways. We will remove the meta data, isolate the audio and plot it using SciPy.
 
 # Installation
 **In order to use this project properly, you must pip-install these libraries:**
@@ -20,4 +20,6 @@ After selecting the audio sample and converting it, we will manipulate and plot 
 
 # Usage
 **Follow these steps to use our project:**
-  1. 
+  1. Run the program, you should see the GUI
+  2. Click on the "Select Audio File" button and select your audio sample
+  3. 
