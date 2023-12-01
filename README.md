@@ -10,17 +10,17 @@ Our first step was to create a clean and simple GUI that was user-friendly and e
 that our user will fetch their desired audio sample from. We added a button that allows the user to access their files and select their audio file. The accepted file
 types are .mp3 and .wav, however, to manipulate and plot this data (this will be discussed later) we will need to convert the audio file to the .wav file format.
 
-After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways. We will remove the meta data, isolate the audio and plot it using SciPy.
+After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways. We will remove the meta data, isolate the audio and plot it using SciPy. We will graph several different aspects of the audio file.
 
 # Installation
 **In order to use this project properly, you must pip-install these libraries:**
-  - Tkinter (to create the GUI)
-  - Pydub (used for converting and manipulating the audio)
-  - SciPy (manipulation and plotting audio)
+  - tkinter (to create the GUI)
+  - pydub (used for converting and manipulating the audio)
+  - ffmpeg (pydub works because of this framework, so it must be installed for pydub to work)
+  - scipy (manipulation and plotting audio)
 
 # Usage
 **Follow these steps to use our project:**
   1. Ensure that you have all the necessary libraries installed
   2. Run the program (you should now see the GUI)
   3. Click on the "Select Audio File" button and select your audio sample
-  4. 
