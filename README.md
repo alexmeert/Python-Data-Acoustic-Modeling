@@ -17,7 +17,7 @@ After selecting the audio sample and converting it, we will manipulate and plot 
   - tkinter (to create the GUI)---------------------------------------------------------------------------> In the terminal **pip install tkinter**
   - pydub (used for converting and manipulating the audio)-----------------------------------------> In the terminal **pip install pydub**
   - ffmpeg (pydub works because of this framework)-------------------------------------------------> In the terminal **pip install ffmpeg**
-  - scipy (manipulation and plotting audio)-----------------------------------------------------------> In the terminal **pip install scipy**
+  - scipy (manipulation and plotting audio)----------------------------------------------------------> In the terminal **pip install scipy**
 
 # Usage
 **Follow these steps to use our project:**
