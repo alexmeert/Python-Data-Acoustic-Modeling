@@ -19,6 +19,9 @@ After selecting the audio sample and converting it, we will manipulate and plot 
   - ffmpeg (pydub works because of this framework)-------------------------------------------------> In the terminal **pip install ffmpeg**
   - scipy (manipulation and plotting audio)------------------------------------------------------------> In the terminal **pip install scipy**
 
+**You must also add FFmpeg to your system's path**
+
+
 # Usage
 **Follow these steps to use our project:**
   1. Ensure that you have all the necessary libraries installed
