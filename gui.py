@@ -1,46 +1,40 @@
 import tkinter as tk
 from tkinter import filedialog
+from pydub import AudioSegment
+from pydub.playback import play
 import os
-import librosa
-from os import path 
-from pydub import AudioSegment 
 
-class AudioFileLoaderApp(tk.Tk):
-    def __init__(self):
-        super().__init__()
+def convert_audio(src, dst):
+    sound = AudioSegment.from_mp3(src)
+    sound.export(dst, format="wav")
+    raw_audio = AudioSegment.from_file(dst, format="wav")
+    channel_count = raw_audio.channels
+    print(f"Channel count before conversion: {channel_count}")
+    mono_wav = raw_audio.set_channels(1)
+    mono_wav.export("pt_mono.wav", format="wav")
+    mono_wav_audio = AudioSegment.from_file("pt_mono.wav", format="wav")
+    channel_count = mono_wav_audio.channels
+    print(f"Channel count after conversion: {channel_count}")
+    return os.path.abspath("pt_mono.wav")
 
-        self.title('Audio File Loader')
-        self.geometry('400x150')
+def open_file_dialog():
+    file_path = filedialog.askopenfilename(title="Select an audio file", filetypes=[("Audio files", "*.mp3")])
+    if file_path:
+        print(f"Selected file: {file_path}")
+        converted_file_path = convert_audio(file_path, "pt_mono.wav")
 
-        self.init_ui()
+# Create the main window
+window = tk.Tk()
+window.title("Clap Audio Analysis")
 
-    def init_ui(self):
-        self.load_button = tk.Button(self, text='Load Audio File', command=self.load_audio_file)
-        self.load_button.place(x=120, y=20, width=150, height=40)
+# Set the initial size of the window
+window.geometry("300x100")  # width x height
 
-        self.file_label = tk.Label(self, text='No file loaded')
-        self.file_label.place(x=20, y=80, width=360, height=40)
+# Create a button to open the file dialog
+button = tk.Button(window, text="Open File Dialog", height=2, width=20, command=open_file_dialog)
 
-    def load_audio_file(self):
-        file_name = filedialog.askopenfilename(title='Open Audio File', filetypes=[('Audio Files', '*.wav;*.mp3;*.ogg'), ('All Files', '*.*')])
-        if file_name:
-            file_name_only = os.path.basename(file_name)  # Extract the file name without the directory
-            self.file_label.config(text=f'Loaded File: {file_name_only}')
+# Center the button in the window
+button.pack(side="top", pady=20)
 
-            if not file_name_only.endswith('.wav'):
-                converted_file_name = os.path.splitext(file_name_only)[0] + '.wav'
-                audio, sr = librosa.load(file_name, sr=None)
-                librosa.output.write_wav(converted_file_name, audio, sr)
-                self.file_label.config(text=f'Loaded File (Converted to .wav): {converted_file_name}')
-
-if __name__ == '__main__':
-    app = AudioFileLoaderApp()
-    app.mainloop()
-
-# files
-src = "transcript.mp3"
-dst = "test.wav"
-
-# convert wav to mp3
-sound = AudioSegment.from_mp3(src)
-sound.export(dst, format="wav")
+# Run the Tkinter event loop
+window.mainloop()
