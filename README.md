@@ -19,7 +19,7 @@ After selecting the audio sample and converting it, we will manipulate and plot 
   - ffmpeg (pydub works because of this framework)-------------------------------------------------> In the terminal **pip install ffmpeg**
   - scipy (manipulation and plotting audio)------------------------------------------------------------> In the terminal **pip install scipy**
 
-**You must also add FFmpeg to your system's path**
+**You must also add FFmpeg to your system's path since we will be converting other file types to the .wav format**
 
 
 # Usage
