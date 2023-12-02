@@ -10,7 +10,7 @@ Our first step was to create a clean and simple GUI that was user-friendly and e
 that our user will fetch their desired audio sample from. We added a button that allows the user to access their files and select their audio file. The accepted file
 types are .mp3 and .wav, however, to manipulate and plot this data (this will be discussed later) we will need to convert the audio file to the .wav file format.
 
-After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways. We will remove the meta data, isolate the audio and plot it using SciPy. We will graph several different aspects of the audio file.
+After selecting the audio sample and converting it, we will manipulate and plot the audio in several different ways. We will remove the metadata, isolate the audio, and plot it using SciPy. We will graph several different aspects of the audio file.
 
 # Installation
 **In order to use this project properly, you must pip-install these libraries:**
@@ -19,8 +19,19 @@ After selecting the audio sample and converting it, we will manipulate and plot 
   - ffmpeg (pydub works because of this framework)-------------------------------------------------> In the terminal **pip install ffmpeg**
   - scipy (manipulation and plotting audio)------------------------------------------------------------> In the terminal **pip install scipy**
 
-**You must also add FFmpeg to your system's path since we will be converting other file types to the .wav format**
-
+**You must also add FFmpeg to your system's path if you don't already**
+  1. Go to https://ffmpeg.org/download.html
+  2. Under "Get packages and executable files" select your Operating System (Linux, Windows, or MacOS)
+  3. There will be a dropdown menu for each OS, select a package suitable for your system and download it
+  4. Extract the folder and navigate to the executable (.exe file)
+  5. Copy the directory path
+  6. Open "System Properties"
+  7. Click on "Advanced Settings"
+  8. Click on "Environment Variables"
+  9. Find the "Path" variable and click "Edit"
+  10. Now click "New" and paste the directory path you copied in Step 5 and click "Ok"
+  11. Open a command prompt by typing "cmd" in the search box on your task bar
+  12. Once opened type "ffmpeg" to ensure it has been properly added to the path
 
 # Usage
 **Follow these steps to use our project:**
