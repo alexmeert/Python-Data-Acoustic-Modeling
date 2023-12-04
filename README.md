@@ -1,5 +1,5 @@
 # Scientific Python Data Acoustic Modeling
-This is a project for COP 2080, CS Problem Solving and Solution. We used the skills from this class to model the acoustics of an enclosed space.
+This is a project for COP 2080, CS Problem Solving and Solution. We used the skills from this class to model the acoustics of a clap in an enclosed space.
 
 # About the Project
 It's evident that some indoor spaces have better acoustics than others, this project deals with voice and audio intelligibility within these spaces. With the use of
