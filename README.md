@@ -1,4 +1,4 @@
-# Python-Data-Acoustic-Modeling
+# Scientific Python Data Acoustic Modeling
 This is a project for COP 2080, CS Problem Solving and Solution. We used the skills from this class to model the acoustics of an enclosed space.
 
 # About the Project
