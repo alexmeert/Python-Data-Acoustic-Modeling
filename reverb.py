@@ -49,7 +49,7 @@ plt.plot(t[index_of_max], data_in_db[index_of_max], 'go')
 sliced_array = data_in_db[index_of_max:]
 value_of_max_less_5 = value_of_max - 5
 
-#find the nearest value
+# find the nearest value
 def find_nearest_value(array, value):
     array = np.asarray(array)
     debugg(f'array{array[:10]}')
