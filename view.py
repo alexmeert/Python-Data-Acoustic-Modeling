@@ -29,8 +29,11 @@ class AudioConverterView:
         self.resonance_label = tk.Label(self.window, text="Resonance: ")
         self.resonance_label.pack(side="top", pady=10)
 
-        self.close_button = tk.Button(self.window, text="Done", command=self.window.destroy, fg="red")
+        self.close_button = tk.Button(self.window, text="Close", command=self.window.destroy, fg="red")
         self.close_button.pack(side="bottom", pady=10)
+
+        self.merge_button = tk.Button(self.window, text = "Combine Plots")
+        self.merge_button.pack(side="bottom", pady=10)
 
     def open_file_dialog(self):
         file_path = filedialog.askopenfilename(title="Select an audio file", filetypes=[("Audio files", "*.mp3")])
