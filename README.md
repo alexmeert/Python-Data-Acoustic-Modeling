@@ -18,6 +18,7 @@ After selecting the audio sample and converting it, we will manipulate and plot 
   - pydub (used for converting and manipulating the audio)---------------------> In the terminal **pip install pydub**
   - ffmpeg (pydub works because of this framework)-----------------------------> In the terminal **pip install ffmpeg**
   - scipy (manipulation and plotting audio)----------------------------------------> In the terminal **pip install scipy**
+  - numpy (Aray Computing) ----------------------------------------> In the terminal **pip install numpy**
 
 **You must also add FFmpeg to your system's path if you don't already**
   1. Go to https://ffmpeg.org/download.html
