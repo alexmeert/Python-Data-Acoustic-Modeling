@@ -1,6 +1,5 @@
 from model import AudioConverter
 from view import AudioConverterView
-from tkinter import filedialog
 
 class AudioConverterController:
     def __init__(self):
