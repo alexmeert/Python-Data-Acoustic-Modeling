@@ -14,29 +14,41 @@ class AudioConverterView:
         self.window.title("Clap Audio Analysis")
         self.window.geometry("800x650")
 
-        self.button = tk.Button(self.window, text="Load File", height=2, width=20, command=self.open_file_dialog)
-        self.button.pack(side="top", pady=20)
+        # File selection section
+        self.file_frame = tk.Frame(self.window)
+        self.file_frame.pack(side="top", pady=20)
 
-        # Create a frame to embed the waveform plot
+        self.button = tk.Button(self.file_frame, text="Load File", height=2, width=20, command=self.open_file_dialog)
+        self.button.pack(side="left")
+
+        self.filename_label = tk.Label(self.file_frame, text="Selected File: ")
+        self.filename_label.pack(side="left", padx=10)
+
+        # Plot section
         self.plot_frame = tk.Frame(self.window)
         self.plot_frame.pack(side="top", expand=True, fill="both")
 
-        # Label to display the duration
+        # Duration label
         self.duration_label = tk.Label(self.window, text="Duration: ")
         self.duration_label.pack(side="top", pady=10)
 
-        # Label to display the resonance
+        # Resonance label
         self.resonance_label = tk.Label(self.window, text="Resonance: ")
         self.resonance_label.pack(side="top", pady=10)
 
-        self.close_button = tk.Button(self.window, text="Close", command=self.window.destroy, fg="red")
-        self.close_button.pack(side="bottom", pady=10)
+        # Control buttons section
+        self.button_frame = tk.Frame(self.window)
+        self.button_frame.pack(side="bottom", pady=10)
 
-        self.merge_button = tk.Button(self.window, text = "Combine Plots")
-        self.merge_button.pack(side="bottom", pady=10)
+        self.close_button = tk.Button(self.button_frame, text="Close", command=self.window.destroy, fg="red")
+        self.close_button.pack(side="left", padx=10)
+
+        self.merge_button = tk.Button(self.button_frame, text="Combine Plots")
+        self.merge_button.pack(side="left", padx=10)
 
     def open_file_dialog(self):
         file_path = filedialog.askopenfilename(title="Select an audio file", filetypes=[("Audio files", "*.mp3")])
+        filename = os.path.basename(file_path)
         if file_path:
             print("Selected file:", file_path)
             converted_file_path = self.controller.convert_audio(file_path, "pt_mono.wav")
@@ -45,6 +57,10 @@ class AudioConverterView:
             self.update_waveform_plot(converted_file_path)
             self.update_duration_label(converted_file_path)
             self.update_highest_resonance(converted_file_path)
+            self.update_selected_file(filename)
+
+    def update_selected_file(self, filename):
+        self.filename_label.config(text=f"Selected File: {filename}")
 
     def update_waveform_plot(self, file_path):
         # Read the .wav file
