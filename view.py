@@ -4,7 +4,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
 from scipy.io import wavfile
-from scipy.fft import fft, fftfreq
+from scipy.signal import welch
 import os  # Added for os.path.abspath
 
 class AudioConverterView:
@@ -107,20 +107,11 @@ class AudioConverterView:
         # Read the audio file
         sample_rate, data = wavfile.read(file_path)
 
-        # Perform FFT on the audio data
-        n = len(data) * 10  # Increase the FFT size for better frequency resolution
-        fft_result = fft(data, n)
-        fft_freqs = fftfreq(n, d=1 / sample_rate)
+        frequencies, power = welch(data, sample_rate, nperseg=4096)
+        dominant_frequency = frequencies[np.argmax(power)]
 
-        # Exclude negative frequencies and find the index of the maximum amplitude
-        positive_freqs = fft_freqs[:n // 2]
-        magnitude_spectrum = np.abs(fft_result[:n // 2])
-        resonance_index = np.argmax(magnitude_spectrum)
-
-        # Calculate the highest resonance frequency
-        highest_resonance = positive_freqs[resonance_index]
         # Update the label
-        self.resonance_label.config(text=f"Resonance: {highest_resonance:.2f} Hz")
+        self.resonance_label.config(text=f"Resonance: {dominant_frequency:.2f} Hz")
 
     def run(self):
         self.window.mainloop()
