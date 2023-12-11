@@ -39,3 +39,4 @@ After selecting the audio sample and converting it, we will manipulate and plot 
   1. Ensure that you have all the necessary libraries installed
   2. Run the program (you should now see the GUI)
   3. Click on the "Select Audio File" button and select your audio sample
+  4. You may then choose any of the buttons to view the plots of your audio sample
