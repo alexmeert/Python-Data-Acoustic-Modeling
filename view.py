@@ -53,7 +53,6 @@ class AudioConverterView:
         self.merge_button.grid(row=0, column=1, padx=10)
 
 
-
         # Buttons to select which plot is shown
         var = tk.IntVar()
         self.lowButton = tk.Radiobutton(text="Low", variable=var, value=1, command=self.update_lowFreq_plot)
