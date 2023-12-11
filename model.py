@@ -1,5 +1,3 @@
-# model.py
-
 from pydub import AudioSegment
 import os
 
