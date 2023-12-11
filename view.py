@@ -13,7 +13,7 @@ class AudioConverterView:
         self.controller = controller
         self.window = tk.Tk()
         self.window.title("Clap Audio Analysis")
-        self.window.geometry("800x650")
+        self.window.maxsize(820, 670)
 
         # Set background colors
         bg_color = "#F0F0F0"  # Light gray
@@ -43,7 +43,7 @@ class AudioConverterView:
 
         # Control buttons section
         self.button_frame = tk.Frame(self.window, bg=bg_color)
-        self.button_frame.grid(row=4, column=0, columnspan=5, pady=10, padx=10, sticky="w")
+        self.button_frame.grid(row=5, column=0, columnspan=5, pady=10, padx=10, sticky="w")
 
         self.close_button = tk.Button(self.button_frame, text="Close", command=self.window.destroy, fg="red")
         self.close_button.grid(row=0, column=0, padx=10)
@@ -51,6 +51,8 @@ class AudioConverterView:
         # Combine plots button
         self.merge_button = tk.Button(self.button_frame, text="Combine Frequency Plots", command=self.combine_plots)
         self.merge_button.grid(row=0, column=1, padx=10)
+
+
 
         # Buttons to select which plot is shown
         var = tk.IntVar()
@@ -63,8 +65,9 @@ class AudioConverterView:
         self.highButton.grid(row=2, column=3, padx=5)
         self.waveformButton.grid(row=2, column=4, padx=5)
 
-        # Variable to store loaded file path
+        # Variable to store loaded file path and converted file path
         self.loaded_file_path = None
+        self.converted_file_path = None
 
     def open_file_dialog(self):
         file_path = filedialog.askopenfilename(title="Select an audio file", filetypes=[("Audio files", "*.mp3")])
@@ -72,49 +75,53 @@ class AudioConverterView:
         if file_path:
             print("Selected file:", file_path)
             self.loaded_file_path = file_path
-            converted_file_path = self.controller.convert_audio(file_path, "pt_mono.wav")
+            self.converted_file_path = self.controller.convert_audio(file_path, "pt_mono.wav")
 
             # Update the waveform plot and duration label
-            self.update_waveform_plot(converted_file_path)
-            self.update_duration_label(converted_file_path)
-            self.update_highest_resonance(converted_file_path)
+            self.update_waveform_plot()
+            self.update_duration_label()
+            self.update_highest_resonance()
             self.update_selected_file(filename)
 
     def update_selected_file(self, filename):
         self.filename_label.config(text=f"Selected File: {filename}")
 
-    def update_waveform_plot(self, file_path):
-        # Read the .wav file
-        sample_rate, data = wavfile.read(os.path.abspath(file_path))
+    def update_waveform_plot(self):
+        if self.converted_file_path:
+            # Read the .wav file
+            sample_rate, data = wavfile.read(os.path.abspath(self.converted_file_path))
 
-        # Calculate the time array
-        t = np.arange(0, len(data) / sample_rate, 1 / sample_rate)
+            # Calculate the time array
+            t = np.arange(0, len(data) / sample_rate, 1 / sample_rate)
 
-        # Ensure the length of t matches the length of data
-        if len(t) != len(data):
-            t = np.linspace(0, len(data) / sample_rate, len(data))
+            # Ensure the length of t matches the length of data
+            if len(t) != len(data):
+                t = np.linspace(0, len(data) / sample_rate, len(data))
 
-        # Clear the existing plot (if any)
-        for widget in self.plot_frame.winfo_children():
-            widget.destroy()
+            # Clear the existing plot (if any)
+            for widget in self.plot_frame.winfo_children():
+                widget.destroy()
 
-        # Create a Figure and set of Axes
-        fig = Figure(figsize=(8, 4))
-        ax = fig.add_subplot(111)
+            # Create a Figure and set of Axes
+            fig = Figure(figsize=(8, 4))
+            ax = fig.add_subplot(111)
 
-        # Plot the waveform
-        ax.plot(t, data, color='#004bc6')
-        ax.set_xlabel('Time (s)')
-        ax.set_ylabel('Amplitude (dB)')
-        ax.set_title('Waveform of Audio')
-        ax.grid()
+            # Plot the waveform
+            ax.plot(t, data, color='blue')
+            ax.set_xlabel('Time (s)')
+            ax.set_ylabel('Amplitude (dB)')
+            ax.set_title('Waveform of Audio')
+            ax.grid()
 
-        # Create the canvas to display the plot
-        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
-        canvas_widget = canvas.get_tk_widget()
-        canvas_widget.pack(expand=True, fill=tk.BOTH)
+            # Create the canvas to display the plot
+            canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
+            canvas_widget = canvas.get_tk_widget()
+            canvas_widget.pack(expand=True, fill=tk.BOTH)
 
-        print("Updated waveform plot")
+            print("Updated waveform plot")
+
+        else:
+            print("No audio file loaded. Please load an audio file first.")
 
     def combine_plots(self):
         if self.loaded_file_path:
@@ -129,7 +136,7 @@ class AudioConverterView:
             fig, ax = plt.subplots(figsize=(8, 4))
 
             # Plot low frequencies
-            ax.plot(low_frequencies, low_power, label='Low Frequencies', color='blue')
+            ax.plot(low_frequencies, low_power, label='Low Frequencies', color='purple')
 
             # Plot mid frequencies
             ax.plot(mid_frequencies, mid_power, label='Mid Frequencies', color='green')
@@ -216,7 +223,7 @@ class AudioConverterView:
             ax = fig.add_subplot(111)
 
             if band == "low":
-                ax.plot(frequencies[low_indices], np.abs(fft_result[low_indices]), color='blue', label='Low Frequencies')
+                ax.plot(frequencies[low_indices], np.abs(fft_result[low_indices]), color='purple', label='Low Frequencies')
             elif band == "mid":
                 ax.plot(frequencies[mid_indices], np.abs(fft_result[mid_indices]), color='green', label='Mid Frequencies')
             elif band == "high":
@@ -242,25 +249,27 @@ class AudioConverterView:
         else:
             print("No audio file loaded. Please load an audio file first.")
 
-    def update_duration_label(self, file_path):
-        # Read the .wav file
-        sample_rate, data = wavfile.read(os.path.abspath(file_path))
+    def update_duration_label(self):
+        if self.converted_file_path:
+            # Read the .wav file
+            sample_rate, data = wavfile.read(os.path.abspath(self.converted_file_path))
 
-        # Calculate the duration
-        duration = len(data) / sample_rate
+            # Calculate the duration
+            duration = len(data) / sample_rate
 
-        # Update the label
-        self.duration_label.config(text=f"Duration: {duration:.2f} seconds")
+            # Update the label
+            self.duration_label.config(text=f"Duration: {duration:.2f} seconds")
 
-    def update_highest_resonance(self, file_path):
-        # Read the audio file
-        sample_rate, data = wavfile.read(file_path)
+    def update_highest_resonance(self):
+        if self.converted_file_path:
+            # Read the audio file
+            sample_rate, data = wavfile.read(self.converted_file_path)
 
-        frequencies, power = welch(data, sample_rate, nperseg=4096)
-        dominant_frequency = frequencies[np.argmax(power)]
+            frequencies, power = welch(data, sample_rate, nperseg=4096)
+            dominant_frequency = frequencies[np.argmax(power)]
 
-        # Update the label
-        self.resonance_label.config(text=f"Resonance: {dominant_frequency:.2f} Hz")
+            # Update the label
+            self.resonance_label.config(text=f"Resonance: {dominant_frequency:.2f} Hz")
 
     def run(self):
         self.window.mainloop()
